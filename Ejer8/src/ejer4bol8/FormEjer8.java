@@ -14,6 +14,7 @@ import javax.swing.*;
  */
 public class FormEjer8 extends JFrame implements ItemListener {
 
+    int selecciones;
     JCheckBox chkCajas[][] = new JCheckBox[7][7];
     JButton btnJugar;
 
@@ -27,8 +28,7 @@ public class FormEjer8 extends JFrame implements ItemListener {
 
         for (int i = 0; i < chkCajas.length; i++) {
             for (int j = 0; j < chkCajas[0].length; j++) {
-                System.out.println(i + " " + j);
-                chkCajas[i][j] = new JCheckBox(String.format("%d", acu+1));
+                chkCajas[i][j] = new JCheckBox(String.format("%d", acu + 1));
                 chkCajas[i][j].setLocation(ancho, alto);
                 chkCajas[i][j].setSize(45, 45);
                 chkCajas[i][j].addItemListener(this);
@@ -43,7 +43,31 @@ public class FormEjer8 extends JFrame implements ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (e.getSource().getClass() == JCheckBox.class) {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                selecciones++;
+            } else {
+                selecciones--;
+            }
+
+            if (selecciones == 6) {
+                for (int i = 0; i < chkCajas.length; i++) {
+                    for (int j = 0; j < chkCajas[0].length; j++) {
+                        if (!chkCajas[i][j].isSelected()) {
+                            chkCajas[i][j].setEnabled(false);
+                        }
+                    }
+                }
+            } else {
+                for (int i = 0; i < chkCajas.length; i++) {
+                    for (int j = 0; j < chkCajas[0].length; j++) {
+                        if (!chkCajas[i][j].isSelected()) {
+                            chkCajas[i][j].setEnabled(true);
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }
