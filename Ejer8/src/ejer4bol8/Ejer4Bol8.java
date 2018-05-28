@@ -23,7 +23,7 @@ public class Ejer4Bol8 {
         Dimension resolucion = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension resolucionMinima = resolucion;
         int ancho = 385;
-        int alto = 385;
+        int alto = 440;
         form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         form.setSize(ancho, alto);
         form.setLocationRelativeTo(null);

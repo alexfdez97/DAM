@@ -12,7 +12,7 @@ import javax.swing.*;
  *
  * @author alex
  */
-public class FormEjer8 extends JFrame implements ItemListener {
+public class FormEjer8 extends JFrame implements ItemListener, ActionListener {
 
     int selecciones;
     JCheckBox chkCajas[][] = new JCheckBox[7][7];
@@ -39,8 +39,23 @@ public class FormEjer8 extends JFrame implements ItemListener {
             alto = alto + chkCajas[i][0].getHeight() + 10;
             ancho = 10;
         }
+        
+        btnJugar = new JButton("Jugar");
+        btnJugar.setSize(120, 30);
+        btnJugar.setLocation((385/2) - 60, 390);
+        btnJugar.setVisible(false);
+        btnJugar.addActionListener(this);
+        add(btnJugar);
     }
 
+    public int[] aleatorios() {
+        int numeros[] = new int[6];
+        for (int i = 0; i < numeros.length; i++) {
+            numeros[i] = (int) (Math.random() * 49) + 1;
+        }
+        return numeros;
+    }
+    
     @Override
     public void itemStateChanged(ItemEvent e) {
         if (e.getSource().getClass() == JCheckBox.class) {
@@ -58,6 +73,7 @@ public class FormEjer8 extends JFrame implements ItemListener {
                         }
                     }
                 }
+                btnJugar.setVisible(true);
             } else {
                 for (int i = 0; i < chkCajas.length; i++) {
                     for (int j = 0; j < chkCajas[0].length; j++) {
@@ -65,6 +81,18 @@ public class FormEjer8 extends JFrame implements ItemListener {
                             chkCajas[i][j].setEnabled(true);
                         }
                     }
+                }
+                btnJugar.setVisible(false);
+            }
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource()== btnJugar) {
+            for (int i = 0; i < chkCajas.length; i++) {
+                for (int j = 0; j < chkCajas[0].length; j++) {
+                    //TODO Comprobar numeros premiados en una nueva ventana
                 }
             }
         }
