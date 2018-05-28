@@ -39,10 +39,10 @@ public class FormEjer8 extends JFrame implements ItemListener, ActionListener {
             alto = alto + chkCajas[i][0].getHeight() + 10;
             ancho = 10;
         }
-        
+
         btnJugar = new JButton("Jugar");
         btnJugar.setSize(120, 30);
-        btnJugar.setLocation((385/2) - 60, 390);
+        btnJugar.setLocation((385 / 2) - 60, 390);
         btnJugar.setVisible(false);
         btnJugar.addActionListener(this);
         add(btnJugar);
@@ -55,7 +55,7 @@ public class FormEjer8 extends JFrame implements ItemListener, ActionListener {
         }
         return numeros;
     }
-    
+
     @Override
     public void itemStateChanged(ItemEvent e) {
         if (e.getSource().getClass() == JCheckBox.class) {
@@ -89,12 +89,24 @@ public class FormEjer8 extends JFrame implements ItemListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource()== btnJugar) {
-            for (int i = 0; i < chkCajas.length; i++) {
-                for (int j = 0; j < chkCajas[0].length; j++) {
-                    //TODO Comprobar numeros premiados en una nueva ventana
-                }
-            }
+        if (e.getSource() == btnJugar) {
+            Form2Ejer8 f = new Form2Ejer8(this);
+            f.setSize(600, 800);
+            f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            f.setLocationRelativeTo(null);
+            f.setVisible(true);
+//            int numeroCaja;
+//            int[] numerosPremiados = aleatorios();
+//            for (int i = 0; i < chkCajas.length; i++) {
+//                for (int j = 0; j < chkCajas[0].length; j++) {
+//                    numeroCaja = Integer.parseInt(chkCajas[i][j].getText());
+//                for (int numeros: numerosPremiados) {
+//                    if (numeroCaja == numeros) {
+//                        
+//                    }
+//                }
+//                }
+//            }
         }
     }
 
