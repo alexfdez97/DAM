@@ -7,7 +7,6 @@ package ejer4bol8;
 
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import javax.swing.*;
 
 /**
@@ -61,17 +60,6 @@ public class FormEjer8 extends JFrame implements ItemListener, ActionListener {
             numeros[i] = lista.remove((int)(Math.random() * lista.size()));
         }
         return numeros;
-//        int numeros[] = new int[6];
-//        for (int i = 0; i < numeros.length; i++) {
-//            numeros[i] = (int) (Math.random() * 49) + 1;
-//            for (int j = 0; j < i; j++) {
-//                if (numeros[i] == numeros[j]) {
-//                     i--;
-//                     break;
-//                }
-//            }
-//        }
-//        return numeros;
     }
 
     @Override
@@ -113,18 +101,6 @@ public class FormEjer8 extends JFrame implements ItemListener, ActionListener {
             f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
             f.setLocationRelativeTo(null);
             f.setVisible(true);
-//            int numeroCaja;
-//            int[] numerosPremiados = aleatorios();
-//            for (int i = 0; i < chkCajas.length; i++) {
-//                for (int j = 0; j < chkCajas[0].length; j++) {
-//                    numeroCaja = Integer.parseInt(chkCajas[i][j].getText());
-//                for (int numeros: numerosPremiados) {
-//                    if (numeroCaja == numeros) {
-//                        
-//                    }
-//                }
-//                }
-//            }
         }
     }
 

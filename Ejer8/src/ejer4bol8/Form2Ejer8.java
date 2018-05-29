@@ -16,7 +16,6 @@ import javax.swing.JLabel;
 public class Form2Ejer8 extends JDialog {
 
     JLabel lblNumeros[] = new JLabel[6];
-//    int numerosSeleccionados[] = new int[6];
     int sorteo[] = new int[6];
     int acu = 0;
     int ancho = 20;
@@ -30,7 +29,6 @@ public class Form2Ejer8 extends JDialog {
         for (int i = 0; i < f.chkCajas.length; i++) {
             for (int j = 0; j < f.chkCajas[0].length; j++) {
                 if (f.chkCajas[i][j].isSelected()) {
-//                    numerosSeleccionados[acu] = Integer.parseInt(f.chkCajas[i][j].getText());
                     lblNumeros[acu] = new JLabel(f.chkCajas[i][j].getText());
                     lblNumeros[acu].setSize(20, 20);
                     lblNumeros[acu].setLocation(ancho, 20);
