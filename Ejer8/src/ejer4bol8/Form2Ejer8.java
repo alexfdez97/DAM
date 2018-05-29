@@ -43,6 +43,7 @@ public class Form2Ejer8 extends JDialog {
                             lblNumeros[acu].setForeground(Color.red);
                         }
                     }
+                    System.out.println("--");
                     ancho = ancho + 40;
                     acu++;
                 }
