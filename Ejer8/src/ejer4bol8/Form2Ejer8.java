@@ -6,20 +6,37 @@
 package ejer4bol8;
 
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 /**
  *
  * @author alex
  */
+class AdaptadorRaton extends MouseAdapter{
+        @Override
+	public void mouseEntered(MouseEvent ev){
+		ev.getComponent().setBackground(new Color(186, 195, 196));
+                ev.getComponent().setForeground(Color.white);
+	}
+        @Override
+	public void mouseExited(MouseEvent ev){
+		ev.getComponent().setBackground(null);
+                ev.getComponent().setForeground(null);
+	}
+}
+
 public class Form2Ejer8 extends JDialog {
 
     JLabel lblNumeros[] = new JLabel[6];
+    JMenu opciones;
     JMenuBar barraMenu;
-    JMenu guardarPartida, verRecords;
+    JMenuItem guardarPartida, verRecords;
     int sorteo[] = new int[6];
     int acu = 0;
     int ancho = 20;
@@ -29,13 +46,18 @@ public class Form2Ejer8 extends JDialog {
         setLayout(null);
         setTitle("Números Premiados");
         
-        guardarPartida = new JMenu("Guardar Partida");
+        guardarPartida = new JMenuItem("Guardar Partida");
         guardarPartida.setMnemonic('g');
         guardarPartida.addActionListener(f);
+        guardarPartida.addMouseListener(new AdaptadorRaton());
         
-        verRecords = new JMenu("Ver records");
+        verRecords = new JMenuItem("Ver records");
         verRecords.setMnemonic('v');
         verRecords.addActionListener(f);
+        verRecords.addMouseListener(new AdaptadorRaton());
+        
+        opciones = new JMenu("Opciones");
+        opciones.setMnemonic('o');
         
         barraMenu = new JMenuBar();
         barraMenu.add(guardarPartida);
