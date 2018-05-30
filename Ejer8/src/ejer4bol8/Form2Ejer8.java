@@ -6,6 +6,7 @@
 package ejer4bol8;
 
 import java.awt.Color;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JDialog;
@@ -18,7 +19,7 @@ import javax.swing.JMenuItem;
  *
  * @author alex
  */
-class AdaptadorRaton extends MouseAdapter{
+class AdaptadorRaton extends MouseAdapter {
         @Override
 	public void mouseEntered(MouseEvent ev){
 		ev.getComponent().setBackground(new Color(186, 195, 196));
@@ -34,7 +35,6 @@ class AdaptadorRaton extends MouseAdapter{
 public class Form2Ejer8 extends JDialog {
 
     JLabel lblNumeros[] = new JLabel[6];
-    JMenu opciones;
     JMenuBar barraMenu;
     JMenuItem guardarPartida, verRecords;
     int sorteo[] = new int[6];
@@ -56,9 +56,6 @@ public class Form2Ejer8 extends JDialog {
         verRecords.addActionListener(f);
         verRecords.addMouseListener(new AdaptadorRaton());
         
-        opciones = new JMenu("Opciones");
-        opciones.setMnemonic('o');
-        
         barraMenu = new JMenuBar();
         barraMenu.add(guardarPartida);
         barraMenu.add(verRecords);
@@ -74,14 +71,12 @@ public class Form2Ejer8 extends JDialog {
                     lblNumeros[acu].setLocation(ancho, 20);
                     add(lblNumeros[acu]);
                     for (int numero: sorteo) {
-                        System.out.println(numero);
                         if (numero == Integer.parseInt(f.chkCajas[i][j].getText())) {
                             lblNumeros[acu].setForeground(Color.green);
                         } else {
                             lblNumeros[acu].setForeground(Color.red);
                         }
                     }
-                    System.out.println("--");
                     ancho = ancho + 40;
                     acu++;
                 }

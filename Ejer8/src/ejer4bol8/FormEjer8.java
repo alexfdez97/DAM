@@ -5,7 +5,9 @@
  */
 package ejer4bol8;
 
+import java.awt.Color;
 import java.awt.event.*;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -19,6 +21,7 @@ public class FormEjer8 extends JFrame implements ItemListener, ActionListener {
     JCheckBox chkCajas[][] = new JCheckBox[7][7];
     JButton btnJugar;
     Form2Ejer8 f;
+    FormDatosUsuario formDatos;
 
     public FormEjer8() {
         super("Primitiva");
@@ -105,9 +108,31 @@ public class FormEjer8 extends JFrame implements ItemListener, ActionListener {
         }
 
         if (e.getSource() == f.guardarPartida) {
-            System.err.println("Guardar partida seleccionado");
+            formDatos = new FormDatosUsuario(this);
+            formDatos.setSize(350, 100);
+            formDatos.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            formDatos.setLocationRelativeTo(null);
+            formDatos.setVisible(true);
+            f.dispose();
+        }
+        
+        if (e.getSource() == formDatos.aceptar) {
+            System.err.println("No disponible todavía");
+//            try (RandomAccessFile archivoGuardado = new RandomAccessFile("savegame.dat", "rw")) {
+//                for (int i = 0; i < f.lblNumeros.length; i++) {
+//                    int coincidencias = 0;
+//                    if (f.lblNumeros[i].getForeground() == Color.green) {
+//                        coincidencias++;
+//                    }
+//                }
+//            } catch (Exception ex) {
+//            }
         }
 
+        if (e.getSource() == formDatos.cancelar) {
+            formDatos.dispose();
+        }
+        
         if (e.getSource() == f.verRecords) {
             System.err.println("Ver records seleccionado");
         }
