@@ -8,6 +8,8 @@ package ejer4bol8;
 import java.awt.Color;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 
 /**
  *
@@ -16,6 +18,8 @@ import javax.swing.JLabel;
 public class Form2Ejer8 extends JDialog {
 
     JLabel lblNumeros[] = new JLabel[6];
+    JMenuBar barraMenu;
+    JMenu guardarPartida, verRecords;
     int sorteo[] = new int[6];
     int acu = 0;
     int ancho = 20;
@@ -23,7 +27,21 @@ public class Form2Ejer8 extends JDialog {
     public Form2Ejer8(FormEjer8 f) {
         super(f, true);
         setLayout(null);
-
+        setTitle("Números Premiados");
+        
+        guardarPartida = new JMenu("Guardar Partida");
+        guardarPartida.setMnemonic('g');
+        guardarPartida.addActionListener(f);
+        
+        verRecords = new JMenu("Ver records");
+        verRecords.setMnemonic('v');
+        verRecords.addActionListener(f);
+        
+        barraMenu = new JMenuBar();
+        barraMenu.add(guardarPartida);
+        barraMenu.add(verRecords);
+        this.setJMenuBar(barraMenu);
+        
         sorteo = f.aleatorios();
 
         for (int i = 0; i < f.chkCajas.length; i++) {

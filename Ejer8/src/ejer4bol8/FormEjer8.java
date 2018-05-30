@@ -18,6 +18,7 @@ public class FormEjer8 extends JFrame implements ItemListener, ActionListener {
     int selecciones;
     JCheckBox chkCajas[][] = new JCheckBox[7][7];
     JButton btnJugar;
+    Form2Ejer8 f;
 
     public FormEjer8() {
         super("Primitiva");
@@ -57,7 +58,7 @@ public class FormEjer8 extends JFrame implements ItemListener, ActionListener {
             lista.add(i);
         }
         for (int i = 0; i < numeros.length; i++) {
-            numeros[i] = lista.remove((int)(Math.random() * lista.size()));
+            numeros[i] = lista.remove((int) (Math.random() * lista.size()));
         }
         return numeros;
     }
@@ -96,11 +97,19 @@ public class FormEjer8 extends JFrame implements ItemListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnJugar) {
-            Form2Ejer8 f = new Form2Ejer8(this);
-            f.setSize(600, 800);
+            f = new Form2Ejer8(this);
+            f.setSize(260, 80);
             f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
             f.setLocationRelativeTo(null);
             f.setVisible(true);
+        }
+
+        if (e.getSource() == f.guardarPartida) {
+            System.err.println("Guardar partida seleccionado");
+        }
+
+        if (e.getSource() == f.verRecords) {
+            System.err.println("Ver records seleccionado");
         }
     }
 
