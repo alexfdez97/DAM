@@ -7,7 +7,9 @@ package ejer4bol8;
 
 import java.awt.Color;
 import java.awt.event.*;
-import java.io.RandomAccessFile;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -51,6 +53,11 @@ public class FormEjer8 extends JFrame implements ItemListener, ActionListener {
         btnJugar.setVisible(false);
         btnJugar.addActionListener(this);
         add(btnJugar);
+
+        formDatos = new FormDatosUsuario(this);
+        formDatos.setSize(350, 100);
+        formDatos.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        formDatos.setLocationRelativeTo(null);
     }
 
     public int[] aleatorios() {
@@ -99,40 +106,45 @@ public class FormEjer8 extends JFrame implements ItemListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if (e.getSource() == btnJugar) {
             f = new Form2Ejer8(this);
             f.setSize(260, 80);
-            f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             f.setLocationRelativeTo(null);
             f.setVisible(true);
         }
 
         if (e.getSource() == f.guardarPartida) {
-            formDatos = new FormDatosUsuario(this);
-            formDatos.setSize(350, 100);
-            formDatos.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-            formDatos.setLocationRelativeTo(null);
             formDatos.setVisible(true);
-            f.dispose();
+            f.setVisible(false);
         }
-        
+
         if (e.getSource() == formDatos.aceptar) {
-            System.err.println("No disponible todavía");
-//            try (RandomAccessFile archivoGuardado = new RandomAccessFile("savegame.dat", "rw")) {
-//                for (int i = 0; i < f.lblNumeros.length; i++) {
-//                    int coincidencias = 0;
-//                    if (f.lblNumeros[i].getForeground() == Color.green) {
-//                        coincidencias++;
-//                    }
-//                }
-//            } catch (Exception ex) {
-//            }
+            int coincidencias = 0;
+            try (
+                    FileWriter archivoGuardado = new FileWriter("savegame.dat", true);
+                    BufferedWriter bufferGuardado = new BufferedWriter(archivoGuardado);
+                    PrintWriter escritura = new PrintWriter(bufferGuardado);) {
+                for (int i = 0; i < f.lblNumeros.length; i++) {
+                    if (f.lblNumeros[i].getForeground() == Color.green) {
+                        coincidencias++;
+                    }
+                }
+                escritura.println(formDatos.campoNombre.getText().trim() + "." + coincidencias);
+                System.err.println(formDatos.campoNombre.getText().trim());
+                System.err.println(coincidencias);
+                formDatos.dispose();
+                f.dispose();
+            } catch (Exception ex) {
+            }
         }
 
         if (e.getSource() == formDatos.cancelar) {
             formDatos.dispose();
+            f.setVisible(true);
         }
-        
+
         if (e.getSource() == f.verRecords) {
             System.err.println("Ver records seleccionado");
         }
