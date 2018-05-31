@@ -5,7 +5,6 @@
  */
 package ejer4bol8;
 
-import javax.security.auth.callback.ConfirmationCallback;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;

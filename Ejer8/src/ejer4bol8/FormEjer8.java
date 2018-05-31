@@ -9,9 +9,11 @@ import java.awt.Color;
 import java.awt.event.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.swing.*;
+import org.omg.CORBA.UserException;
 
 /**
  *
@@ -122,21 +124,31 @@ public class FormEjer8 extends JFrame implements ItemListener, ActionListener {
 
         if (e.getSource() == formDatos.aceptar) {
             int coincidencias = 0;
+            String nombre;
+            String ruta = System.getProperty("user.home") + "/records.txt";
             try (
-                    FileWriter archivoGuardado = new FileWriter("savegame.dat", true);
+                    FileWriter archivoGuardado = new FileWriter(ruta, true);
                     BufferedWriter bufferGuardado = new BufferedWriter(archivoGuardado);
-                    PrintWriter escritura = new PrintWriter(bufferGuardado);) {
+                    PrintWriter escritura = new PrintWriter(bufferGuardado);
+                    ) {
                 for (int i = 0; i < f.lblNumeros.length; i++) {
                     if (f.lblNumeros[i].getForeground() == Color.green) {
                         coincidencias++;
                     }
                 }
-                escritura.println(formDatos.campoNombre.getText().trim() + "." + coincidencias);
-                System.err.println(formDatos.campoNombre.getText().trim());
+                if (formDatos.campoNombre.getText().trim().length() == 0) {
+                    nombre = "Anónimo";
+                    JOptionPane.showMessageDialog(null, "Se añadirá el resultado con nombre \"Anónimo\"", "", JOptionPane.PLAIN_MESSAGE);
+                } else {
+                    nombre = formDatos.campoNombre.getText().trim();
+                }
+                escritura.println(nombre + "." + coincidencias);
+                System.err.println(nombre);
                 System.err.println(coincidencias);
                 formDatos.dispose();
                 f.dispose();
-            } catch (Exception ex) {
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar guardar", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
 
@@ -147,6 +159,7 @@ public class FormEjer8 extends JFrame implements ItemListener, ActionListener {
 
         if (e.getSource() == f.verRecords) {
             System.err.println("Ver records seleccionado");
+            
         }
     }
 
