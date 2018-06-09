@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.swing.*;
-import org.omg.CORBA.UserException;
 
 /**
  *
@@ -26,6 +25,9 @@ public class FormEjer8 extends JFrame implements ItemListener, ActionListener {
     JButton btnJugar;
     Form2Ejer8 f;
     FormDatosUsuario formDatos;
+//    JMenuBar mnuBarra;
+//    JMenu mnuOpciones;
+//    JMenuItem mnuGuardar, mnuVerRecords;
 
     public FormEjer8() {
         super("Primitiva");
@@ -56,6 +58,24 @@ public class FormEjer8 extends JFrame implements ItemListener, ActionListener {
         btnJugar.addActionListener(this);
         add(btnJugar);
 
+//        mnuGuardar = new JMenuItem("Guardar Partida");
+//        mnuGuardar.setMnemonic('g');
+//        mnuGuardar.addActionListener(this);
+//        
+//        mnuVerRecords = new JMenuItem("Ver records");
+//        mnuVerRecords.setMnemonic('v');
+//        mnuVerRecords.addActionListener(this);
+//        
+//        mnuOpciones = new JMenu("Opciones");
+//        mnuOpciones.setMnemonic('o');
+//        mnuOpciones.add(mnuGuardar);
+//        mnuOpciones.addSeparator();
+//        mnuOpciones.add(mnuVerRecords);
+//        
+//        mnuBarra = new JMenuBar();
+//        mnuBarra.add(mnuOpciones);
+//        setJMenuBar(mnuBarra);
+        
         formDatos = new FormDatosUsuario(this);
         formDatos.setSize(350, 100);
         formDatos.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -158,8 +178,11 @@ public class FormEjer8 extends JFrame implements ItemListener, ActionListener {
         }
 
         if (e.getSource() == f.verRecords) {
-            System.err.println("Ver records seleccionado");
-            
+            FormRecords fRecords = new FormRecords(this);
+            fRecords.setSize(400, 400);
+            fRecords.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            fRecords.setLocationRelativeTo(null);
+            fRecords.setVisible(true);
         }
     }
 
