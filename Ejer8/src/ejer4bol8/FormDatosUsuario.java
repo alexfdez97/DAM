@@ -20,7 +20,7 @@ public class FormDatosUsuario extends JDialog {
     JTextField campoNombre;
     JButton aceptar, cancelar;
     
-    public FormDatosUsuario(FormEjer8 f) {
+    public FormDatosUsuario(FormEjer4 f) {
         super(f);
         setLayout(null);
         this.setTitle("Introduce tu nombre");

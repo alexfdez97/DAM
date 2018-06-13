@@ -18,18 +18,18 @@ import javax.swing.*;
  *
  * @author alex
  */
-public class FormEjer8 extends JFrame implements ItemListener, ActionListener {
+public class FormEjer4 extends JFrame implements ItemListener, ActionListener {
 
     int selecciones;
     JCheckBox chkCajas[][] = new JCheckBox[7][7];
     JButton btnJugar;
-    Form2Ejer8 f;
+    Form2Ejer4 f;
     FormDatosUsuario formDatos;
 //    JMenuBar mnuBarra;
 //    JMenu mnuOpciones;
 //    JMenuItem mnuGuardar, mnuVerRecords;
 
-    public FormEjer8() {
+    public FormEjer4() {
         super("Primitiva");
         setLayout(null);
 
@@ -130,7 +130,7 @@ public class FormEjer8 extends JFrame implements ItemListener, ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == btnJugar) {
-            f = new Form2Ejer8(this);
+            f = new Form2Ejer4(this);
             f.setSize(260, 80);
             f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             f.setLocationRelativeTo(null);

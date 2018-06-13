@@ -30,7 +30,7 @@ class AdaptadorRaton extends MouseAdapter {
 	}
 }
 
-public class Form2Ejer8 extends JDialog {
+public class Form2Ejer4 extends JDialog {
 
     JLabel lblNumeros[] = new JLabel[6];
     JMenuBar barraMenu;
@@ -39,7 +39,7 @@ public class Form2Ejer8 extends JDialog {
     int acu = 0;
     int ancho = 20;
 
-    public Form2Ejer8(FormEjer8 f) {
+    public Form2Ejer4(FormEjer4 f) {
         super(f, true);
         setLayout(null);
         setTitle("Números Premiados");

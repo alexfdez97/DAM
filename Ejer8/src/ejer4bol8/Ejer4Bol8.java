@@ -18,7 +18,7 @@ public class Ejer4Bol8 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        FormEjer8 form = new FormEjer8();
+        FormEjer4 form = new FormEjer4();
 
         Dimension resolucion = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension resolucionMinima = resolucion;

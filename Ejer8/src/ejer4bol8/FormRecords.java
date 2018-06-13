@@ -18,27 +18,29 @@ import javax.swing.JTextArea;
 public class FormRecords extends JDialog {
 
     JTextArea txtArea;
-    
-    public FormRecords(FormEjer8 f) {
+
+    public FormRecords(FormEjer4 f) {
         super(f);
         setLayout(null);
         this.setTitle("Records");
-        
+
         txtArea = new JTextArea();
         txtArea.setSize(300, 100);
         txtArea.setLocation(0, 0);
+        txtArea.setEditable(false);
         add(txtArea);
-        
+
         try (Scanner scRecords = new Scanner(new File(System.getProperty("user.home") + "/records.txt"))) {
-            while(scRecords.hasNext()) {
-                txtArea.setText(scRecords.nextLine());
-                txtArea.setText("\n");
-                scRecords.nextLine();
+            String texto = "";
+            while (scRecords.hasNext()) {
+                texto += scRecords.next();
+                texto += "\n";
             }
+            txtArea.setText(texto);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al acceder al archivo records", "Error", JOptionPane.ERROR_MESSAGE);
-            System.out.println(e);
+            System.err.println(e);
         }
     }
-    
+
 }
