@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ejer4bol8;
 
 import java.awt.Color;
@@ -15,22 +10,51 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 /**
- *
- * @author alex
+ * Clase del formulario
+ * @author Alejandro Fernández Martínez
  */
 public class FormEjer4 extends JFrame implements ItemListener, ActionListener {
 
+    /**
+     * Cantidad de chkCajas seleccionados
+     */
     int selecciones;
+    /**
+     * Son los CheckBox que se van a crear
+     */
     JCheckBox chkCajas[][] = new JCheckBox[7][7];
+    /**
+     * Botón de juego
+     */
     JButton btnJugar;
-    Form2Ejer4 f;
+    /**
+     * Formulario de datos que se piden
+     */
     FormDatosUsuario formDatos;
-    JMenuBar mnuBarra;
-    JMenu mnuOpciones;
+    /**
+     * Items para guardar y ver los records
+     */
     JMenuItem mnuGuardar, mnuVerRecords;
+    /**
+     * Es el menú de opciones
+     */
+    JMenu mnuOpciones;
+    /**
+     * Es la barra de menú
+     */
+    JMenuBar mnuBarra;
+    /**
+     * Cantidad de veces que se ha acertado
+     */
     int coincidencias = 0;
+    /**
+     * Valor que indica si se debe de volver a jugar antes de guardar la partida
+     */
     boolean volverJugar = false;
 
+    /**
+     * Inicializa el formulario
+     */
     public FormEjer4() {
         super("Primitiva");
         setLayout(null);
@@ -84,6 +108,10 @@ public class FormEjer4 extends JFrame implements ItemListener, ActionListener {
         formDatos.setLocationRelativeTo(null);
     }
 
+    /**
+     * Genera números aleatorios y <b>únicos</b>
+     * @return El vector de números generados
+     */
     public int[] aleatorios() {
 
         int numeros[] = new int[6];
@@ -97,6 +125,11 @@ public class FormEjer4 extends JFrame implements ItemListener, ActionListener {
         return numeros;
     }
 
+    /**
+     * Sobreescribe la interfaz ItemListener
+     * Controla el número de checkbox seleccionados, y deshabilita los checkbox si es hay 6 seleccionados y habilita el botón para jugar
+     * @param e El evento del ItemListener
+     */
     @Override
     public void itemStateChanged(ItemEvent e) {
         if (e.getSource().getClass() == JCheckBox.class) {
@@ -128,20 +161,29 @@ public class FormEjer4 extends JFrame implements ItemListener, ActionListener {
         }
     }
 
+    /**
+     * Sobreescribe la interfaz ActionListener
+     * Controla el resto de eventos
+     * @param e El evento del ActionListener
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
-
         if (e.getSource() == btnJugar) {
             coincidencias = 0;
             volverJugar = false;
+            for (int i = 0; i < chkCajas.length; i++) {
+                for (int j = 0; j < chkCajas[0].length; j++) {
+                    chkCajas[i][j].setBackground(null);
+                }
+            }
             int numeros[] = aleatorios();
             for (int i = 0; i < chkCajas.length; i++) {
                 for (int j = 0; j < chkCajas[0].length; j++) {
-                    chkCajas[i][j].setBackground(Color.red);
                     for (int numero : numeros) {
                         if (numero == Integer.parseInt(chkCajas[i][j].getText())) {
-                            chkCajas[i][j].setBackground(Color.green);
+                            chkCajas[i][j].setBackground(Color.red);
                             if (chkCajas[i][j].isSelected()) {
+                                chkCajas[i][j].setBackground(Color.green);
                                 coincidencias++;
                             }
                         }
@@ -159,38 +201,35 @@ public class FormEjer4 extends JFrame implements ItemListener, ActionListener {
             }
         }
 
-        if (e.getSource() == formDatos.aceptar) {
+        if (e.getSource() == mnuVerRecords) {
+            FormRecords fRecords = new FormRecords(this);
+            fRecords.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            fRecords.setLocationRelativeTo(null);
+            fRecords.setVisible(true);
+        }
+        
+        if (e.getSource() == formDatos.btnAceptar) {
             String nombre;
             String ruta = System.getProperty("user.home") + "/records.txt";
             try (
                     FileWriter archivoGuardado = new FileWriter(ruta, true);
                     BufferedWriter bufferGuardado = new BufferedWriter(archivoGuardado);
                     PrintWriter escritura = new PrintWriter(bufferGuardado);) {
-                if (formDatos.campoNombre.getText().trim().length() == 0) {
+                if (formDatos.txfCampoNombre.getText().trim().length() == 0) {
                     nombre = "Anónimo";
                     JOptionPane.showMessageDialog(null, "Se añadirá el resultado con nombre \"Anónimo\"", "", JOptionPane.PLAIN_MESSAGE);
                 } else {
-                    nombre = formDatos.campoNombre.getText().trim();
+                    nombre = formDatos.txfCampoNombre.getText().trim();
                 }
                 escritura.println(nombre + "." + coincidencias);
-                System.err.println(nombre);
-                System.err.println(coincidencias);
                 formDatos.dispose();
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar guardar", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
 
-        if (e.getSource() == formDatos.cancelar) {
+        if (e.getSource() == formDatos.btnCancelar) {
             formDatos.dispose();
-        }
-
-        if (e.getSource() == mnuVerRecords) {
-            FormRecords fRecords = new FormRecords(this);
-        //    fRecords.setSize(300, 100);
-            fRecords.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            fRecords.setLocationRelativeTo(null);
-            fRecords.setVisible(true);
         }
     }
 

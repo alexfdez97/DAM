@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ejer4bol8;
 
 import java.awt.Color;
@@ -14,8 +9,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 /**
- *
- * @author alex
+ * Adaptador que colorea el componente al entrar y lo devuelve a null al salir
+ * @author Alejandro Fernández Martínez
  */
 class AdaptadorRaton extends MouseAdapter {
         @Override
@@ -30,6 +25,11 @@ class AdaptadorRaton extends MouseAdapter {
 	}
 }
 
+/**
+ * Formulario secundario que muestra los números seleccionados y si tienen premio o no (Verde Si, Rojo No)
+ * @deprecated <b>Quedó en desuso, las funciones aquí implementadas se pasaron al formulario principal {@link FormEjer4}</b>
+ * @author Alejandro Fernández Martínez
+ */
 public class Form2Ejer4 extends JDialog {
 
     JLabel lblNumeros[] = new JLabel[6];
@@ -39,6 +39,10 @@ public class Form2Ejer4 extends JDialog {
     int acu = 0;
     int ancho = 20;
 
+    /**
+     * Inicializa el formulario secundario
+     * @param f 
+     */
     public Form2Ejer4(FormEjer4 f) {
         super(f, true);
         setLayout(null);

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ejer4bol8;
 
 import javax.swing.JButton;
@@ -11,15 +6,28 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 /**
- *
- * @author Alex
+ * Clase del formulario que pide datos
+ * @author Alejandro Fernández Martínez
  */
 public class FormDatosUsuario extends JDialog {
 
+    /**
+     * Label de información
+     */
     JLabel lblInfo;
-    JTextField campoNombre;
-    JButton aceptar, cancelar;
+    /**
+     * Campo donde se introduce el nombre
+     */
+    JTextField txfCampoNombre;
+    /**
+     * Botones de aceptar, y cancelar
+     */
+    JButton btnAceptar, btnCancelar;
     
+    /**
+     * Inicializa el formulario que pide datos
+     * @param f Es el formulario principal
+     */
     public FormDatosUsuario(FormEjer4 f) {
         super(f);
         setLayout(null);
@@ -30,21 +38,21 @@ public class FormDatosUsuario extends JDialog {
         lblInfo.setLocation(10, 10);
         add(lblInfo);
         
-        campoNombre = new JTextField();
-        campoNombre.setSize(120, 20);
-        campoNombre.setLocation(170, 10);
-        add(campoNombre);
+        txfCampoNombre = new JTextField();
+        txfCampoNombre.setSize(120, 20);
+        txfCampoNombre.setLocation(170, 10);
+        add(txfCampoNombre);
         
-        aceptar = new JButton("Aceptar");
-        aceptar.setSize(100, 20);
-        aceptar.setLocation(10, 40);
-        aceptar.addActionListener(f);
-        add(aceptar);
+        btnAceptar = new JButton("Aceptar");
+        btnAceptar.setSize(100, 20);
+        btnAceptar.setLocation(10, 40);
+        btnAceptar.addActionListener(f);
+        add(btnAceptar);
         
-        cancelar = new JButton("Cancelar");
-        cancelar.setSize(100, 20);
-        cancelar.setLocation(240, 40);
-        cancelar.addActionListener(f);
-        add(cancelar);
+        btnCancelar = new JButton("Cancelar");
+        btnCancelar.setSize(100, 20);
+        btnCancelar.setLocation(240, 40);
+        btnCancelar.addActionListener(f);
+        add(btnCancelar);
     }
 }

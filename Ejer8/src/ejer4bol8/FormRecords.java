@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ejer4bol8;
 
 import java.io.File;
@@ -12,13 +7,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 /**
- *
- * @author alex
+ * Inicializa el formulario que muestra los records
+ * @author Alejandro Fernández Martínez
  */
 public class FormRecords extends JDialog {
 
+    /**
+     * Es dónde se muestran los datos
+     */
     JTextArea txtArea;
 
+    /**
+     * Inicializa el formulario de records
+     * @param f Es el formulario principal
+     */
     public FormRecords(FormEjer4 f) {
         super(f);
         setLayout(null);
