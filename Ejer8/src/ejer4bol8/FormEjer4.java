@@ -25,9 +25,11 @@ public class FormEjer4 extends JFrame implements ItemListener, ActionListener {
     JButton btnJugar;
     Form2Ejer4 f;
     FormDatosUsuario formDatos;
-//    JMenuBar mnuBarra;
-//    JMenu mnuOpciones;
-//    JMenuItem mnuGuardar, mnuVerRecords;
+    JMenuBar mnuBarra;
+    JMenu mnuOpciones;
+    JMenuItem mnuGuardar, mnuVerRecords;
+    int coincidencias = 0;
+    boolean volverJugar = false;
 
     public FormEjer4() {
         super("Primitiva");
@@ -54,28 +56,28 @@ public class FormEjer4 extends JFrame implements ItemListener, ActionListener {
         btnJugar = new JButton("Jugar");
         btnJugar.setSize(120, 30);
         btnJugar.setLocation((385 / 2) - 60, 390);
-        btnJugar.setVisible(false);
+        btnJugar.setEnabled(false);
         btnJugar.addActionListener(this);
         add(btnJugar);
 
-//        mnuGuardar = new JMenuItem("Guardar Partida");
-//        mnuGuardar.setMnemonic('g');
-//        mnuGuardar.addActionListener(this);
-//        
-//        mnuVerRecords = new JMenuItem("Ver records");
-//        mnuVerRecords.setMnemonic('v');
-//        mnuVerRecords.addActionListener(this);
-//        
-//        mnuOpciones = new JMenu("Opciones");
-//        mnuOpciones.setMnemonic('o');
-//        mnuOpciones.add(mnuGuardar);
-//        mnuOpciones.addSeparator();
-//        mnuOpciones.add(mnuVerRecords);
-//        
-//        mnuBarra = new JMenuBar();
-//        mnuBarra.add(mnuOpciones);
-//        setJMenuBar(mnuBarra);
-        
+        mnuGuardar = new JMenuItem("Guardar Partida");
+        mnuGuardar.setMnemonic('g');
+        mnuGuardar.addActionListener(this);
+
+        mnuVerRecords = new JMenuItem("Ver records");
+        mnuVerRecords.setMnemonic('v');
+        mnuVerRecords.addActionListener(this);
+
+        mnuOpciones = new JMenu("Opciones");
+        mnuOpciones.setMnemonic('o');
+        mnuOpciones.add(mnuGuardar);
+        mnuOpciones.addSeparator();
+        mnuOpciones.add(mnuVerRecords);
+
+        mnuBarra = new JMenuBar();
+        mnuBarra.add(mnuOpciones);
+        setJMenuBar(mnuBarra);
+
         formDatos = new FormDatosUsuario(this);
         formDatos.setSize(350, 100);
         formDatos.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -112,7 +114,7 @@ public class FormEjer4 extends JFrame implements ItemListener, ActionListener {
                         }
                     }
                 }
-                btnJugar.setVisible(true);
+                btnJugar.setEnabled(true);
             } else {
                 for (int i = 0; i < chkCajas.length; i++) {
                     for (int j = 0; j < chkCajas[0].length; j++) {
@@ -121,7 +123,7 @@ public class FormEjer4 extends JFrame implements ItemListener, ActionListener {
                         }
                     }
                 }
-                btnJugar.setVisible(false);
+                btnJugar.setEnabled(false);
             }
         }
     }
@@ -130,32 +132,40 @@ public class FormEjer4 extends JFrame implements ItemListener, ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == btnJugar) {
-            f = new Form2Ejer4(this);
-            f.setSize(260, 80);
-            f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            f.setLocationRelativeTo(null);
-            f.setVisible(true);
+            coincidencias = 0;
+            volverJugar = false;
+            int numeros[] = aleatorios();
+            for (int i = 0; i < chkCajas.length; i++) {
+                for (int j = 0; j < chkCajas[0].length; j++) {
+                    chkCajas[i][j].setBackground(Color.red);
+                    for (int numero : numeros) {
+                        if (numero == Integer.parseInt(chkCajas[i][j].getText())) {
+                            chkCajas[i][j].setBackground(Color.green);
+                            if (chkCajas[i][j].isSelected()) {
+                                coincidencias++;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
-        if (e.getSource() == f.guardarPartida) {
-            formDatos.setVisible(true);
-            f.setVisible(false);
+        if (e.getSource() == mnuGuardar) {
+            if (volverJugar) {
+                JOptionPane.showMessageDialog(null, "Debes de jugar otra partida antes de volver a guardar", "No hagas trampas", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                volverJugar = true;
+                formDatos.setVisible(true);
+            }
         }
 
         if (e.getSource() == formDatos.aceptar) {
-            int coincidencias = 0;
             String nombre;
             String ruta = System.getProperty("user.home") + "/records.txt";
             try (
                     FileWriter archivoGuardado = new FileWriter(ruta, true);
                     BufferedWriter bufferGuardado = new BufferedWriter(archivoGuardado);
-                    PrintWriter escritura = new PrintWriter(bufferGuardado);
-                    ) {
-                for (int i = 0; i < f.lblNumeros.length; i++) {
-                    if (f.lblNumeros[i].getForeground() == Color.green) {
-                        coincidencias++;
-                    }
-                }
+                    PrintWriter escritura = new PrintWriter(bufferGuardado);) {
                 if (formDatos.campoNombre.getText().trim().length() == 0) {
                     nombre = "Anónimo";
                     JOptionPane.showMessageDialog(null, "Se añadirá el resultado con nombre \"Anónimo\"", "", JOptionPane.PLAIN_MESSAGE);
@@ -166,7 +176,6 @@ public class FormEjer4 extends JFrame implements ItemListener, ActionListener {
                 System.err.println(nombre);
                 System.err.println(coincidencias);
                 formDatos.dispose();
-                f.dispose();
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar guardar", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -174,12 +183,11 @@ public class FormEjer4 extends JFrame implements ItemListener, ActionListener {
 
         if (e.getSource() == formDatos.cancelar) {
             formDatos.dispose();
-            f.setVisible(true);
         }
 
-        if (e.getSource() == f.verRecords) {
+        if (e.getSource() == mnuVerRecords) {
             FormRecords fRecords = new FormRecords(this);
-            fRecords.setSize(400, 400);
+        //    fRecords.setSize(300, 100);
             fRecords.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             fRecords.setLocationRelativeTo(null);
             fRecords.setVisible(true);

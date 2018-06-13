@@ -25,7 +25,6 @@ public class FormRecords extends JDialog {
         this.setTitle("Records");
 
         txtArea = new JTextArea();
-        txtArea.setSize(300, 100);
         txtArea.setLocation(0, 0);
         txtArea.setEditable(false);
         add(txtArea);
@@ -37,6 +36,8 @@ public class FormRecords extends JDialog {
                 texto += "\n";
             }
             txtArea.setText(texto);
+            txtArea.setSize(txtArea.getPreferredSize());
+            this.setSize(txtArea.getSize());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al acceder al archivo records", "Error", JOptionPane.ERROR_MESSAGE);
             System.err.println(e);
